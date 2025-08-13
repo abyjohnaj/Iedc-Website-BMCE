@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "487120249063",
+    "project_id": "iedcwebsite-6a1fc",
+    "storage_bucket": "iedcwebsite-6a1fc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:487120249063:android:d5d6535b4ddbe5979c8242",
+        "android_client_info": {
+          "package_name": "com.example.iedc_web"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFuNifilgKzKwYmg9bPYVv_8R_lgn-tsY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
