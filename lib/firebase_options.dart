@@ -64,6 +64,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '487120249063',
     projectId: 'iedcwebsite-6a1fc',
     storageBucket: 'iedcwebsite-6a1fc.firebasestorage.app',
+    iosClientId: '487120249063-k5fjq117aedfn6ruhhooi0nmp5gk4i0u.apps.googleusercontent.com',
     iosBundleId: 'com.example.iedcWeb',
   );
 
@@ -73,6 +74,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '487120249063',
     projectId: 'iedcwebsite-6a1fc',
     storageBucket: 'iedcwebsite-6a1fc.firebasestorage.app',
+    iosClientId: '487120249063-k5fjq117aedfn6ruhhooi0nmp5gk4i0u.apps.googleusercontent.com',
     iosBundleId: 'com.example.iedcWeb',
   );
 
@@ -85,4 +87,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'iedcwebsite-6a1fc.firebasestorage.app',
     measurementId: 'G-57KRND1JM9',
   );
+
 }
