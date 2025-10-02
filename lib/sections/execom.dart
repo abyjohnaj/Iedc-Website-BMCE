@@ -159,7 +159,7 @@ class Execom extends StatelessWidget {
         child: Column(
           children: [
             Text("Execom Members",
-                          style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+                          style: TextStyle(color: Colors.amber, fontSize: 32, fontWeight: FontWeight.bold)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -264,7 +264,7 @@ class Execom extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 OfficerCard(
-                  imagePath: "assets/Meenakshi.JPG",
+                  imagePath: "assets/Meenakshi1.JPG",
                   name: "Meenakshi M. S.",
                   description:
                       "Women Innovation Lead",

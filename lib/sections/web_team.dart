@@ -160,7 +160,7 @@ class WebTeam extends StatelessWidget {
         child: Column(
           children: [
             Text("Web Team",
-                          style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+                          style: TextStyle(color: Colors.amber, fontSize: 32, fontWeight: FontWeight.bold)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,7 +191,7 @@ class WebTeam extends StatelessWidget {
                       "Designer",
                 ),
                 OfficerCard(
-                      imagePath: "assets/Meenakshi.JPG",
+                      imagePath: "assets/Meenakshi1.JPG",
                       name: "Meenakshi M. S.",
                       description:
                           "Designer",

@@ -19,7 +19,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   double _opacity = 0.0;
 
-  // 🔹 Helper function to launch links
   Future<void> _launchUrl(String url) async {
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
@@ -29,6 +28,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
@@ -42,142 +43,93 @@ class _HomePageState extends State<HomePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset('assets/IEDC  LOGO.png', ),
-                
+                child: Image.asset('assets/IEDC  LOGO.png'),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "IEDC",
-                    style: TextStyle(
-                      color: Color.fromRGBO(15, 72, 106, 1.0),
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      height: 1.0,
+              if (screenWidth > 600) // hide logo text on small screens
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "IEDC",
+                      style: TextStyle(
+                        color: Color.fromRGBO(15, 72, 106, 1.0),
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        height: 1.0,
+                      ),
                     ),
-                  ),
-
-                  Text(
-                    "Innovation and Entreprenuership ",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                  Text(
-                    "Development Centre, BMCE",
-                    style: TextStyle(fontSize: 10),
-                  ),
+                    Text("Innovation and Entreprenuership ", style: TextStyle(fontSize: 10)),
+                    Text("Development Centre, BMCE", style: TextStyle(fontSize: 10)),
+                  ],
+                )
+            ],
+          ),
+        ),
+        title: screenWidth > 800
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _navButton("HOME", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                  }),
+                  _navButton("EUREKA", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsletterSection()));
+                  }),
+                  _navButton("COLLABORATION", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CollaborationSection()));
+                  }),
+                  _navButton("IDEABOX", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
+                  }),
+                  _navButton("INCUBATION", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const Incubation()));
+                  }),
+                  _navButton("CONTACT US", () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactSection()));
+                  }),
                 ],
               )
-            ],
-          ),
-        ),
-        title: Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
+            : PopupMenuButton<String>(
+                icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
+                onSelected: (value) {
+                  switch (value) {
+                    case "HOME":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                      break;
+                    case "EUREKA":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsletterSection()));
+                      break;
+                    case "COLLABORATION":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollaborationSection()));
+                      break;
+                    case "IDEABOX":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
+                      break;
+                    case "INCUBATION":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Incubation()));
+                      break;
+                    case "CONTACT US":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactSection()));
+                      break;
+                  }
                 },
-                child: const Text(
-                  'HOME',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                itemBuilder: (context) => [
+                  const PopupMenuItem(value: "HOME", child: Text("HOME")),
+                  const PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
+                  const PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
+                  const PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
+                  const PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
+                  const PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+                ],
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const NewsletterSection()),
-                  );
-                },
-                child: const Text(
-                  'EUREKA',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CollaborationSection()),
-                  );
-                },
-                child: const Text(
-                  'COLLABORATION',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const IdeaBoxSection()),
-                  );
-                },
-                child: const Text(
-                  'IDEABOX',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Incubation()));
-                },
-                child: const Text(
-                  'INCUBATION',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ContactSection()),
-                  );
-                },
-                child: const Text(
-                  'CONTACT US',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
       body: NotificationListener<ScrollNotification>(
         onNotification: (scrollNotification) {
           if (scrollNotification.metrics.axis == Axis.vertical) {
             double offset = scrollNotification.metrics.pixels;
             setState(() {
-              _opacity = (offset / 200).clamp(0, 1); // fade-in after 200px
+              _opacity = (offset / 200).clamp(0, 1);
             });
           }
           return false;
@@ -186,272 +138,183 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Hero section with video
-            const VideoHero(
-  videoPath: "https://res.cloudinary.com/df2tpx1ld/video/upload/v1757951989/IMG_8344_symvha.mp4",
-),
+              // 🔹 Hero
+              const VideoHero(
+                videoPath:
+                    "https://res.cloudinary.com/df2tpx1ld/video/upload/v1757951989/IMG_8344_symvha.mp4",
+              ),
 
-
-              // Black section with heading
+              // 🔹 Upcoming Events
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 40),
-                height: 612,
                 width: double.infinity,
                 color: Colors.black,
                 child: Column(
                   children: [
-                    const Text(
+                    Text(
                       "Upcoming Events",
                       style: TextStyle(
                         color: Colors.amber,
                         fontFamily: "Anton",
-                        fontSize: 50,
-                        
+                        fontSize: screenWidth > 600 ? 50 : 28,
                       ),
                     ),
                     const SizedBox(height: 30),
-                     Upevetemp(),
-                    const SizedBox(height: 30,),
-                   
-                  ],
-                ),
-              ),
- Row(mainAxisAlignment: MainAxisAlignment.center,
-   children: [
-     TextButton(
-                          onPressed: () async {
-                            await _launchUrl(
-                              "https://whatsapp.com/channel/0029Vb6yfNNI7BeJhuSzYL1y",
-                            );
-                          },
-                          child: const Text(
-                            "Click to know more about Events",
-                            style: TextStyle(color: Colors.amber,
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.amber, ),
-                          ),
+                    Upevetemp(),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () async {
+                        await _launchUrl("https://whatsapp.com/channel/0029Vb6yfNNI7BeJhuSzYL1y");
+                      },
+                      child: const Text(
+                        "Click to know more about Events",
+                        style: TextStyle(
+                          color: Colors.amber,
+                          fontStyle: FontStyle.italic,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.amber,
                         ),
-   ],
- ),
-              // Vision Section
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
-                color: Colors.black,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Left side: Text
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "OUR VISION",
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontFamily: "Anton",
-                              fontStyle: FontStyle.italic,
-                              
-                              color: Colors.amber,
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            "To foster a culture of innovation and entrepreneurship among students, empowering them to become changemakers who create sustainable and impactful solutions for society. By providing the right guidance, mentorship, and resources, IEDC nurtures creative confidence and transforms ideas into reality. It encourages risk-taking, problem-solving, and collaboration, equipping students with the skills needed to thrive in a rapidly evolving world. The centre also bridges the gap between academia and industry, ensuring that innovations address real-world challenges. Ultimately, the vision is to inspire students to think beyond boundaries, lead with purpose, and contribute meaningfully to the nation’s growth. In this journey, IEDC organizes hands-on workshops, hackathons, and networking sessions that connect aspiring innovators with professionals and investors. By fostering a supportive ecosystem, it ensures that every student feels empowered to pursue their entrepreneurial dreams with confidence.",
-                            style: TextStyle(
-                                fontFamily: "Roboto",fontSize: 16, height: 1.5, color: Colors.white),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 30),
-                    // Right side: Image
-                    Expanded(
-                      child: Image.asset(
-                        "assets/vision.jpg",
-                        height: 350,
-                        fit: BoxFit.contain,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              // About IEDC Section
+              // 🔹 Vision Section
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+                padding: const EdgeInsets.all(20),
                 color: Colors.black,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Left side: Image
-                    Expanded(
-                      child: Image.asset(
-                        "assets/iv.jpg",
-                        height: 350,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    const SizedBox(width: 30),
-                    // Right side: Text
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          Text(
-                            "ABOUT IEDC",
-                            style: TextStyle(
-                              fontFamily: "Anton",
-                              fontSize: 32,
-                              fontStyle: FontStyle.italic,
-                              
-                              color: Colors.amber,
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Text(
-                            "The Innovation and Entrepreneurship Development Centre (IEDC) of BMCE serves as a dynamic platform for students to transform their creative ideas into impactful prototypes and successful startups. Through workshops, hackathons, mentoring sessions, and other initiatives, IEDC nurtures innovation, fosters entrepreneurial thinking, and empowers students to become future-ready innovators and leaders. \n\nIt encourages students from all disciplines to explore real-world problems, experiment with solutions, and gain hands-on experience in building sustainable ventures. By connecting young minds with industry experts, investors, and alumni entrepreneurs, IEDC creates a supportive ecosystem where ideas can grow into scalable businesses. Ultimately, it aims to build a culture of creativity, leadership, and self-reliance among students.",
-                            style: TextStyle(
-                                fontFamily: "Roboto",fontSize: 16, height: 1.5, color: Colors.white),
-                          ),
-                        
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                child: LayoutBuilder(builder: (context, constraints) {
+                  if (constraints.maxWidth > 900) {
+                    return Row(
+                      children: [
+                        Expanded(child: _visionText()),
+                        const SizedBox(width: 30),
+                        Expanded(
+                          child: Image.asset("assets/vision.jpg", height: 350, fit: BoxFit.contain),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        _visionText(),
+                        const SizedBox(height: 20),
+                        Image.asset("assets/vision.jpg", height: 200, fit: BoxFit.contain),
+                      ],
+                    );
+                  }
+                }),
               ),
-               Container(
-               
+
+              // 🔹 About IEDC
+              Container(
+                padding: const EdgeInsets.all(20),
+                color: Colors.black,
+                child: LayoutBuilder(builder: (context, constraints) {
+                  if (constraints.maxWidth > 900) {
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: Image.asset("assets/iv.jpg", height: 350, fit: BoxFit.contain),
+                        ),
+                        const SizedBox(width: 30),
+                        Expanded(child: _aboutText()),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        Image.asset("assets/iv.jpg", height: 200, fit: BoxFit.contain),
+                        const SizedBox(height: 20),
+                        _aboutText(),
+                      ],
+                    );
+                  }
+                }),
+              ),
+
+              // 🔹 Stats Section
+              Container(
                 color: Colors.amber,
-                height: 250,
+                padding: const EdgeInsets.all(20),
                 width: double.infinity,
-                
                 child: Column(
                   children: [
-                    SizedBox(height: 12,),
-                    Text("At IEDC BMCE", style: TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0), fontFamily: "Caveat Brush",
-                    fontSize: 40), ),
-                    SizedBox(height:20 ,),
-                    Row(
+                    const SizedBox(height: 12),
+                    Text(
+                      "At IEDC BMCE",
+                      style: TextStyle(
+                        color: const Color.fromRGBO(15, 72, 106, 1.0),
+                        fontFamily: "Caveat Brush",
+                        fontSize: screenWidth > 600 ? 40 : 24,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 40,
+                      runSpacing: 20,
                       children: [
-                         SizedBox(width: 50,),
-                        Column(
-                          children: [
-                            Text("300+",style: TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0),
-                            fontSize: 70, height: 1.0,fontWeight: FontWeight.bold)),
-                            Text("Members",style: TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0),
-                            fontSize: 20, height: 1.0)),
-                          ],
-                        ),
-                        SizedBox(width: 428,),
-                        Column(
-                          children: [
-                            Text("20+",style: TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0),
-                            fontSize: 70,height: 1.0,fontWeight: FontWeight.bold)),
-                            Text("Events",style: TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0),
-                            fontSize: 20,height: 1.0)),
-                          ],
-                        ),
-                         SizedBox(width: 428,),
-                        Column(
-                          children: [
-                            Text("25+",style: TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0),
-                            fontSize: 70,height: 1.0,fontWeight: FontWeight.bold)),
-                            Text("Startups",style: TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0),
-                            fontSize: 20,height: 1.0)),
-                          ],
-                        ),
-                         SizedBox(width: 50,),
+                        _statsWidget("300+", "Members"),
+                        _statsWidget("20+", "Events"),
+                        _statsWidget("25+", "Startups"),
                       ],
                     ),
                   ],
                 ),
-              
-                
-                
               ),
-              Stack(
-  children: <Widget>[
-    // The full-width background image
-    Container(
-      height: 450,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/IMG_8412.jpg'),
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
-    // The semi-transparent overlay and content
-    Container(
-      height: 450,
-      color: Colors.black.withOpacity(0.7), // Adjust opacity as needed
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          children: [
-             Text(
-                    "NODAL OFFICER'S MESSAGE",
-                    style: TextStyle(
-                      color: Colors.amber,
-                      fontFamily: "Anton",
-                      fontSize: 40,
-                      fontStyle: FontStyle.italic
-                    ),
+
+              // 🔹 Nodal Officer Section
+              Container(
+                height: 450,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/20250916_111931_0000.png'),
+                    fit: BoxFit.cover,
                   ),
-                  SizedBox(height: 16),
-            Row(
-              children: <Widget>[
-                SizedBox(width: 30),
-                // The text section
-                Expanded(
+                ),
+                child: Container(
+                  color: Colors.black.withOpacity(0.7),
+                  padding: const EdgeInsets.all(24),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                     
+                    children: [
                       Text(
-                        '"At the Innovation and Entrepreneurship Development Cell (IEDC) of Baselios Mathews II College of Engineering, we strive to ignite young minds with creativity, innovation, and entrepreneurial drive. Our vision is to equip students with the skills, confidence, and opportunities to transform ideas into meaningful solutions that impact society. I encourage every student to actively engage with IEDC initiatives and be part of this journey of innovation and growth."',
+                        "NODAL OFFICER'S MESSAGE",
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
+                          color: Colors.amber,
+                          fontFamily: "Anton",
+                          fontSize: screenWidth > 600 ? 40 : 24,
                           fontStyle: FontStyle.italic,
                         ),
                       ),
+                      const SizedBox(height: 16),
+                      LayoutBuilder(builder: (context, constraints) {
+                        if (constraints.maxWidth > 900) {
+                          return Row(
+                            children: [
+                              Expanded(child: _officerText()),
+                              const SizedBox(width: 40),
+                              _officerAvatar(),
+                            ],
+                          );
+                        } else {
+                          return Column(
+                            children: [
+                              _officerAvatar(),
+                              const SizedBox(height: 20),
+                              _officerText(),
+                            ],
+                          );
+                        }
+                      }),
                     ],
                   ),
                 ),
-                SizedBox(width: 40,),
-                // The image section
-                Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 100,
-                      backgroundImage: AssetImage('assets/manojsir.JPG'),
-                    ),
-                    Text("Prof. Manoj Kumar", style: TextStyle(fontSize: 22,color: Colors.amber,
-                    fontWeight: FontWeight.bold),),
-                    Text("Nodal Officer, IEDC BMCE", style: TextStyle(fontSize: 14,color: Colors.white,
-                    ),)
-                  ],
-                ),
-                SizedBox(width: 30,),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ),
-  ],
-),
+              ),
 
- 
-              // Footer Section
+              // 🔹 Footer
               const CustomFooter(),
             ],
           ),
@@ -459,4 +322,79 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  // 🔹 Helper Widgets
+  Widget _navButton(String text, VoidCallback onPressed) {
+    return TextButton(
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Color.fromRGBO(15, 72, 106, 1.0),
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _visionText() => const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "OUR VISION",
+            style: TextStyle(fontSize: 32, fontFamily: "Anton", fontStyle: FontStyle.italic, color: Colors.amber),
+          ),
+          SizedBox(height: 16),
+          Text(
+            "To foster a culture of innovation and entrepreneurship among students...",
+            style: TextStyle(fontFamily: "Roboto", fontSize: 16, height: 1.5, color: Colors.white),
+          ),
+        ],
+      );
+
+  Widget _aboutText() => const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "ABOUT IEDC",
+            style: TextStyle(fontFamily: "Anton", fontSize: 32, fontStyle: FontStyle.italic, color: Colors.amber),
+          ),
+          SizedBox(height: 16),
+          Text(
+            "The Innovation and Entrepreneurship Development Centre (IEDC) of BMCE...",
+            style: TextStyle(fontFamily: "Roboto", fontSize: 16, height: 1.5, color: Colors.white),
+          ),
+        ],
+      );
+
+  Widget _statsWidget(String number, String label) {
+    return Column(
+      children: [
+        Text(
+          number,
+          style: const TextStyle(
+              color: Color.fromRGBO(15, 72, 106, 1.0), fontSize: 50, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          label,
+          style: const TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0), fontSize: 20),
+        ),
+      ],
+    );
+  }
+
+  Widget _officerText() => const Text(
+        '"At the Innovation and Entrepreneurship Development Cell (IEDC)..."',
+        style: TextStyle(color: Colors.white, fontSize: 16, fontStyle: FontStyle.italic),
+      );
+
+  Widget _officerAvatar() => Column(
+        children: const [
+          CircleAvatar(radius: 60, backgroundImage: AssetImage('assets/manojsir.JPG')),
+          SizedBox(height: 10),
+          Text("Prof. Manoj Kumar",
+              style: TextStyle(fontSize: 18, color: Colors.amber, fontWeight: FontWeight.bold)),
+          Text("Nodal Officer, IEDC BMCE", style: TextStyle(fontSize: 14, color: Colors.white)),
+        ],
+      );
 }

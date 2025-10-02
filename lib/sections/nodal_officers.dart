@@ -161,7 +161,7 @@ class NodalOfficersPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text("Nodal Officers",
-                            style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+                            style: TextStyle(color: Colors.amber, fontSize: 32, fontWeight: FontWeight.bold)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -190,7 +190,7 @@ class NodalOfficersPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text("IEDC Department Co-ordinators",
-                            style: TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold)),
+                            style: TextStyle(color: Colors.amber, fontSize: 32, fontWeight: FontWeight.bold)),
             ),
                           Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

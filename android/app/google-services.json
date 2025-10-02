@@ -1,43 +1,26 @@
 {
   "project_info": {
-    "project_number": "487120249063",
-    "project_id": "iedcwebsite-6a1fc",
-    "storage_bucket": "iedcwebsite-6a1fc.firebasestorage.app"
+    "project_number": "598766714004",
+    "project_id": "iedcwebsite",
+    "storage_bucket": "iedcwebsite.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:487120249063:android:d5d6535b4ddbe5979c8242",
+        "mobilesdk_app_id": "1:598766714004:android:c4040d5c0d692af0148881",
         "android_client_info": {
           "package_name": "com.example.iedc_web"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "487120249063-2l0f9pu5ueahlnlcldvpcn8j1nvn3uug.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDFuNifilgKzKwYmg9bPYVv_8R_lgn-tsY"
+          "current_key": "AIzaSyDUKOeh9HcY38RcIvMjAFqwjrUacnWLJz0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "487120249063-2l0f9pu5ueahlnlcldvpcn8j1nvn3uug.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "487120249063-k5fjq117aedfn6ruhhooi0nmp5gk4i0u.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.iedcWeb"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

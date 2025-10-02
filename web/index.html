@@ -5,7 +5,7 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Innovation & Entrepreneurship Development Centre of BMCE. Empowering students to innovate, build, and lead.">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -14,28 +14,42 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
+  <!-- 🔧 Changed path from 'web/IEDC LOGO.png' to 'assets/favicon.png' (recommended) -->
   <link rel="icon" type="image/png" href="assets/IEDC  LOGO.png"/>
 
-  <title>iedc_web</title>
+  <title>IEDC BMCE</title>
   <link rel="manifest" href="manifest.json">
 
-  
+  <!-- 🔥 Open Graph (Rich Preview for WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:title" content="IEDC BMCE">
+  <meta property="og:description" content="Empowering students with innovation and entrepreneurship. Official website of IEDC BMCE">
+  <meta property="og:image" content="https://iedcwebsite.web.app/assets/preview.png">
+  <meta property="og:url" content="https://iedcwebsite.web.app">
+  <meta property="og:type" content="website">
 
-  <script>
-    // Your Firebase configuration
+  <!-- 🔥 Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="IEDC BMCE">
+  <meta name="twitter:description" content="Empowering students with innovation and entrepreneurship.">
+  <meta name="twitter:image" content="https://iedcwebsite.web.app/assets/preview.png">
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyCouHnDlRq6UHVcfu67JqsHTXePohr1dDY",
-      authDomain: "iedcwebsite-6a1fc.firebaseapp.com",
-      projectId: "iedcwebsite-6a1fc",
-      storageBucket: "iedcwebsite-6a1fc.firebasestorage.app",
-      messagingSenderId: "487120249063",
-      appId: "1:487120249063:web:6e54e6972560d11a9c8242",
-      measurementId: "G-PKXXSF07H2"
+      apiKey: "AIzaSyDV9lUP7fzl1_AXss84MWcEXUQWhIWlNpY",
+      authDomain: "iedc-website-4822f.firebaseapp.com",
+      projectId: "iedc-website-4822f",
+      storageBucket: "iedc-website-4822f.firebasestorage.app",
+      messagingSenderId: "945769119991",
+      appId: "1:945769119991:web:9171323f2771daadcf13f2"
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
+    const app = initializeApp(firebaseConfig);
   </script>
 </head>
 <body>
