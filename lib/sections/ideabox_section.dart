@@ -39,9 +39,11 @@ class _IdeaBoxSectionState extends State<IdeaBoxSection> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.black,
-     appBar: AppBar(
+      appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         leadingWidth: 300,
@@ -51,139 +53,78 @@ class _IdeaBoxSectionState extends State<IdeaBoxSection> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset('assets/IEDC  LOGO.png', ),
-                
+                child: Image.asset('assets/IEDC  LOGO.png'),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "IEDC",
-                    style: TextStyle(
-                      color: Color.fromRGBO(15, 72, 106, 1.0),
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      height: 1.0,
+              if (screenWidth > 600) // hide text on small screens
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "IEDC",
+                      style: TextStyle(
+                        color: Color.fromRGBO(15, 72, 106, 1.0),
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        height: 1.0,
+                      ),
                     ),
-                  ),
-
-                  Text(
-                    "Innovation and Entreprenuership ",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                  Text(
-                    "Development Centre, BMCE",
-                    style: TextStyle(fontSize: 10),
-                  ),
+                    Text("Innovation and Entreprenuership ", style: TextStyle(fontSize: 10)),
+                    Text("Development Centre, BMCE", style: TextStyle(fontSize: 10)),
+                  ],
+                )
+            ],
+          ),
+        ),
+        title: screenWidth > 800
+            ? Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _navButton(context, "HOME", const HomePage()),
+                  _navButton(context, "EUREKA", const NewsletterSection()),
+                  _navButton(context, "COLLABORATION", const CollaborationSection()),
+                  _navButton(context, "IDEABOX", const IdeaBoxSection()),
+                  _navButton(context, "INCUBATION", const Incubation()),
+                  _navButton(context, "CONTACT US", const ContactSection()),
                 ],
               )
-            ],
-          ),
-        ),
-        title: Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
+            : PopupMenuButton<String>(
+                icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
+                onSelected: (value) {
+                  switch (value) {
+                    case "HOME":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                      break;
+                    case "EUREKA":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsletterSection()));
+                      break;
+                    case "COLLABORATION":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollaborationSection()));
+                      break;
+                    case "IDEABOX":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
+                      break;
+                    case "INCUBATION":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Incubation()));
+                      break;
+                    case "CONTACT US":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactSection()));
+                      break;
+                  }
                 },
-                child: const Text(
-                  'HOME',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                itemBuilder: (context) => [
+                  const PopupMenuItem(value: "HOME", child: Text("HOME")),
+                  const PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
+                  const PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
+                  const PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
+                  const PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
+                  const PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+                ],
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const NewsletterSection()),
-                  );
-                },
-                child: const Text(
-                  'EUREKA',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CollaborationSection()),
-                  );
-                },
-                child: const Text(
-                  'COLLABORATION',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const IdeaBoxSection()),
-                  );
-                },
-                child: const Text(
-                  'IDEABOX',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Incubation()));
-                },
-                child: const Text(
-                  'INCUBATION',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ContactSection()),
-                  );
-                },
-                child: const Text(
-                  'CONTACT US',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
       body: Stack(
         children: [
-          // Background video
+          // 🔹 Background video (already responsive)
           SizedBox.expand(
             child: _controller.value.isInitialized
                 ? FittedBox(
@@ -194,12 +135,25 @@ class _IdeaBoxSectionState extends State<IdeaBoxSection> {
                       child: VideoPlayer(_controller),
                     ),
                   )
-                : const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                : const Center(child: CircularProgressIndicator()),
           ),
-          // Overlay text (optional, you can add IdeaBox-specific heading here)
         ],
+      ),
+    );
+  }
+
+  // 🔹 Nav Button Helper
+  Widget _navButton(BuildContext context, String label, Widget page) {
+    return TextButton(
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+      },
+      child: Text(
+        label,
+        style: const TextStyle(
+          color: Color.fromRGBO(15, 72, 106, 1.0),
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
