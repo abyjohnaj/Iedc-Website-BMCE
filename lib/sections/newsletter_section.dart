@@ -15,8 +15,6 @@ bool _isFlipbookRegistered = false;
 final Map<String, String> newsletters = {
   "Eureka - Jan 2025":
       "https://drive.google.com/file/d/13no5SZQYDedneQpACfbn5kVUEQdsvB2C/view?usp=sharing",
-  // "Eureka - Dec 2024":
-  //     "https://drive.google.com/file/d/your_google_drive_file_id/view?usp=sharing",
 };
 
 class NewsletterSection extends StatelessWidget {
@@ -25,6 +23,7 @@ class NewsletterSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String viewID = 'newsletter-flipbook';
+    final screenWidth = MediaQuery.of(context).size.width;
 
     if (!_isFlipbookRegistered) {
       ui.platformViewRegistry.registerViewFactory(viewID, (int viewId) {
@@ -32,7 +31,7 @@ class NewsletterSection extends StatelessWidget {
           ..src = 'https://online.fliphtml5.com/vaxbbp/iipw/' // Latest issue flipbook link
           ..style.border = 'none'
           ..style.width = '100%'
-          ..style.height = '600px';
+          ..style.height = '100%';
         return iframe;
       });
       _isFlipbookRegistered = true;
@@ -54,135 +53,76 @@ class NewsletterSection extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset('assets/IEDC  LOGO.png', ),
-                
+                child: Image.asset('assets/IEDC  LOGO.png'),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "IEDC",
-                    style: TextStyle(
-                      color: Color.fromRGBO(15, 72, 106, 1.0),
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
-                      height: 1.0,
+              if (screenWidth > 600) // hide long text on very small screens
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "IEDC",
+                      style: TextStyle(
+                        color: Color.fromRGBO(15, 72, 106, 1.0),
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        height: 1.0,
+                      ),
                     ),
-                  ),
-
-                  Text(
-                    "Innovation and Entreprenuership ",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                  Text(
-                    "Development Centre, BMCE",
-                    style: TextStyle(fontSize: 10),
-                  ),
-                ],
+                    Text("Innovation and Entreprenuership ", style: TextStyle(fontSize: 10)),
+                    Text("Development Centre, BMCE", style: TextStyle(fontSize: 10)),
+                  ],
+                )
+            ],
+          ),
+        ),
+        title: screenWidth > 800
+            ? Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _navButton(context, "HOME", const HomePage()),
+                    _navButton(context, "EUREKA", const NewsletterSection()),
+                    _navButton(context, "COLLABORATION", const CollaborationSection()),
+                    _navButton(context, "IDEABOX", const IdeaBoxSection()),
+                    _navButton(context, "INCUBATION", const Incubation()),
+                    _navButton(context, "CONTACT US", const ContactSection()),
+                  ],
+                ),
               )
-            ],
-          ),
-        ),
-        title: Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
+            : PopupMenuButton<String>(
+                icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
+                onSelected: (value) {
+                  switch (value) {
+                    case "HOME":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                      break;
+                    case "EUREKA":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsletterSection()));
+                      break;
+                    case "COLLABORATION":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollaborationSection()));
+                      break;
+                    case "IDEABOX":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
+                      break;
+                    case "INCUBATION":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Incubation()));
+                      break;
+                    case "CONTACT US":
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactSection()));
+                      break;
+                  }
                 },
-                child: const Text(
-                  'HOME',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                itemBuilder: (context) => [
+                  const PopupMenuItem(value: "HOME", child: Text("HOME")),
+                  const PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
+                  const PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
+                  const PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
+                  const PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
+                  const PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+                ],
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const NewsletterSection()),
-                  );
-                },
-                child: const Text(
-                  'EUREKA',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CollaborationSection()),
-                  );
-                },
-                child: const Text(
-                  'COLLABORATION',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const IdeaBoxSection()),
-                  );
-                },
-                child: const Text(
-                  'IDEABOX',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Incubation()));
-                },
-                child: const Text(
-                  'INCUBATION',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ContactSection()),
-                  );
-                },
-                child: const Text(
-                  'CONTACT US',
-                  style: TextStyle(
-                    color: Color.fromRGBO(15, 72, 106, 1.0),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
       body: Column(
         children: [
@@ -206,40 +146,40 @@ class NewsletterSection extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          // Flipbook
+          // 🔹 Responsive Flipbook
           Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(40),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    width: double.infinity,
-                    height: 600,
-                    child: HtmlElementView(viewType: viewID),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // 🔹 Download button
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      html.window.open(latestIssue.value, "_blank");
-                    },
-                    icon: const Icon(Icons.download, color: Colors.white),
-                    label: Text("Download ${latestIssue.key}"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber,
-                      foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 12),
-                      textStyle: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
+            child: Center(
+              child: Container(
+                width: screenWidth > 1000
+                    ? 900
+                    : screenWidth > 600
+                        ? screenWidth * 0.9
+                        : screenWidth * 0.95,
+                height: screenWidth > 600 ? 600 : 400,
+                child: const HtmlElementView(viewType: viewID),
               ),
             ),
           ),
+
+          const SizedBox(height: 20),
+
+          // 🔹 Download button
+          ElevatedButton.icon(
+            onPressed: () {
+              html.window.open(latestIssue.value, "_blank");
+            },
+            icon: const Icon(Icons.download, color: Colors.white),
+            label: Text("Download ${latestIssue.key}"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.amber,
+              foregroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              textStyle: const TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
+
+          const SizedBox(height: 20),
         ],
       ),
     );

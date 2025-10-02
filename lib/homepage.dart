@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset('assets/IEDC  LOGO.png'),
               ),
-              if (screenWidth > 600) // hide logo text on small screens
+              if (screenWidth > 600) // hide long title text on small screens
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 🔹 Hero
+              // 🔹 Hero Section
               const VideoHero(
                 videoPath:
                     "https://res.cloudinary.com/df2tpx1ld/video/upload/v1757951989/IMG_8344_symvha.mp4",
@@ -146,7 +146,7 @@ class _HomePageState extends State<HomePage> {
 
               // 🔹 Upcoming Events
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 40),
+                padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                 width: double.infinity,
                 color: Colors.black,
                 child: Column(
@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                   if (constraints.maxWidth > 900) {
                     return Row(
                       children: [
-                        Expanded(child: _visionText()),
+                        Expanded(child: _visionTextFull()),
                         const SizedBox(width: 30),
                         Expanded(
                           child: Image.asset("assets/vision.jpg", height: 350, fit: BoxFit.contain),
@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                   } else {
                     return Column(
                       children: [
-                        _visionText(),
+                        _visionTextFull(),
                         const SizedBox(height: 20),
                         Image.asset("assets/vision.jpg", height: 200, fit: BoxFit.contain),
                       ],
@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                           child: Image.asset("assets/iv.jpg", height: 350, fit: BoxFit.contain),
                         ),
                         const SizedBox(width: 30),
-                        Expanded(child: _aboutText()),
+                        Expanded(child: _aboutTextFull()),
                       ],
                     );
                   } else {
@@ -227,14 +227,14 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Image.asset("assets/iv.jpg", height: 200, fit: BoxFit.contain),
                         const SizedBox(height: 20),
-                        _aboutText(),
+                        _aboutTextFull(),
                       ],
                     );
                   }
                 }),
               ),
 
-              // 🔹 Stats Section
+              // 🔹 Stats Section (modified to spread across screen)
               Container(
                 color: Colors.amber,
                 padding: const EdgeInsets.all(20),
@@ -251,15 +251,32 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: 40,
-                      runSpacing: 20,
-                      children: [
-                        _statsWidget("300+", "Members"),
-                        _statsWidget("20+", "Events"),
-                        _statsWidget("25+", "Startups"),
-                      ],
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        if (constraints.maxWidth > 900) {
+                          // 🔹 Desktop → spread to edges
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              _statsWidget("300+", "Members"),
+                              _statsWidget("20+", "Events"),
+                              _statsWidget("25+", "Startups"),
+                            ],
+                          );
+                        } else {
+                          // 🔹 Mobile/Tablet → stack
+                          return Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 40,
+                            runSpacing: 20,
+                            children: [
+                              _statsWidget("300+", "Members"),
+                              _statsWidget("20+", "Events"),
+                              _statsWidget("25+", "Startups"),
+                            ],
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -267,7 +284,6 @@ class _HomePageState extends State<HomePage> {
 
               // 🔹 Nodal Officer Section
               Container(
-                height: 450,
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -294,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                         if (constraints.maxWidth > 900) {
                           return Row(
                             children: [
-                              Expanded(child: _officerText()),
+                              Expanded(child: _officerTextFull()),
                               const SizedBox(width: 40),
                               _officerAvatar(),
                             ],
@@ -304,7 +320,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               _officerAvatar(),
                               const SizedBox(height: 20),
-                              _officerText(),
+                              _officerTextFull(),
                             ],
                           );
                         }
@@ -323,7 +339,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // 🔹 Helper Widgets
+  // 🔹 Nav button helper
   Widget _navButton(String text, VoidCallback onPressed) {
     return TextButton(
       onPressed: onPressed,
@@ -337,7 +353,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _visionText() => const Column(
+  // 🔹 Full Vision text
+  Widget _visionTextFull() => const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -346,13 +363,14 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 16),
           Text(
-            "To foster a culture of innovation and entrepreneurship among students...",
+            "To foster a culture of innovation and entrepreneurship among students, empowering them to become changemakers who create sustainable and impactful solutions for society. By providing the right guidance, mentorship, and resources, IEDC nurtures creative confidence and transforms ideas into reality. It encourages risk-taking, problem-solving, and collaboration, equipping students with the skills needed to thrive in a rapidly evolving world. The centre also bridges the gap between academia and industry, ensuring that innovations address real-world challenges. Ultimately, the vision is to inspire students to think beyond boundaries, lead with purpose, and contribute meaningfully to the nation’s growth. In this journey, IEDC organizes hands-on workshops, hackathons, and networking sessions that connect aspiring innovators with professionals and investors. By fostering a supportive ecosystem, it ensures that every student feels empowered to pursue their entrepreneurial dreams with confidence.",
             style: TextStyle(fontFamily: "Roboto", fontSize: 16, height: 1.5, color: Colors.white),
           ),
         ],
       );
 
-  Widget _aboutText() => const Column(
+  // 🔹 Full About text
+  Widget _aboutTextFull() => const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -361,12 +379,13 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 16),
           Text(
-            "The Innovation and Entrepreneurship Development Centre (IEDC) of BMCE...",
+            "The Innovation and Entrepreneurship Development Centre (IEDC) of BMCE serves as a dynamic platform for students to transform their creative ideas into impactful prototypes and successful startups. Through workshops, hackathons, mentoring sessions, and other initiatives, IEDC nurtures innovation, fosters entrepreneurial thinking, and empowers students to become future-ready innovators and leaders. \n\nIt encourages students from all disciplines to explore real-world problems, experiment with solutions, and gain hands-on experience in building sustainable ventures. By connecting young minds with industry experts, investors, and alumni entrepreneurs, IEDC creates a supportive ecosystem where ideas can grow into scalable businesses. Ultimately, it aims to build a culture of creativity, leadership, and self-reliance among students.",
             style: TextStyle(fontFamily: "Roboto", fontSize: 16, height: 1.5, color: Colors.white),
           ),
         ],
       );
 
+  // 🔹 Stats Widget
   Widget _statsWidget(String number, String label) {
     return Column(
       children: [
@@ -383,17 +402,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _officerText() => const Text(
-        '"At the Innovation and Entrepreneurship Development Cell (IEDC)..."',
+  // 🔹 Full Officer message
+  Widget _officerTextFull() => const Text(
+        '"At the Innovation and Entrepreneurship Development Cell (IEDC) of Baselios Mathews II College of Engineering, we strive to ignite young minds with creativity, innovation, and entrepreneurial drive. Our vision is to equip students with the skills, confidence, and opportunities to transform ideas into meaningful solutions that impact society. I encourage every student to actively engage with IEDC initiatives and be part of this journey of innovation and growth."',
         style: TextStyle(color: Colors.white, fontSize: 16, fontStyle: FontStyle.italic),
       );
 
+  // 🔹 Officer avatar
   Widget _officerAvatar() => Column(
         children: const [
-          CircleAvatar(radius: 60, backgroundImage: AssetImage('assets/manojsir.JPG')),
+          CircleAvatar(radius: 100, backgroundImage: AssetImage('assets/manojsir.JPG')),
           SizedBox(height: 10),
           Text("Prof. Manoj Kumar",
-              style: TextStyle(fontSize: 18, color: Colors.amber, fontWeight: FontWeight.bold)),
+              style: TextStyle(fontSize: 22, color: Colors.amber, fontWeight: FontWeight.bold)),
           Text("Nodal Officer, IEDC BMCE", style: TextStyle(fontSize: 14, color: Colors.white)),
         ],
       );
