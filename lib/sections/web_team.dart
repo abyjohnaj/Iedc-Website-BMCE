@@ -27,7 +27,7 @@ class WebTeam extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset('assets/IEDC  LOGO.png'),
               ),
-              if (screenWidth > 600) // hide text on very small screens
+              if (screenWidth > 600)
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +38,6 @@ class WebTeam extends StatelessWidget {
                         color: Color.fromRGBO(15, 72, 106, 1.0),
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
-                        height: 1.0,
                       ),
                     ),
                     Text("Innovation and Entreprenuership ", style: TextStyle(fontSize: 10)),
@@ -48,53 +47,42 @@ class WebTeam extends StatelessWidget {
             ],
           ),
         ),
-        title: screenWidth > 800
-            ? Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _navButton(context, "HOME", const HomePage()),
-                    _navButton(context, "EUREKA", const NewsletterSection()),
-                    _navButton(context, "COLLABORATION", const CollaborationSection()),
-                    _navButton(context, "IDEABOX", const IdeaBoxSection()),
-                    _navButton(context, "INCUBATION", const Incubation()),
-                    _navButton(context, "CONTACT US", const ContactSection()),
-                  ],
-                ),
-              )
-            : PopupMenuButton<String>(
-                icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
-                onSelected: (value) {
-                  switch (value) {
-                    case "HOME":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
-                      break;
-                    case "EUREKA":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsletterSection()));
-                      break;
-                    case "COLLABORATION":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollaborationSection()));
-                      break;
-                    case "IDEABOX":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
-                      break;
-                    case "INCUBATION":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Incubation()));
-                      break;
-                    case "CONTACT US":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactSection()));
-                      break;
-                  }
-                },
-                itemBuilder: (context) => [
-                  const PopupMenuItem(value: "HOME", child: Text("HOME")),
-                  const PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
-                  const PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
-                  const PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
-                  const PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
-                  const PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
-                ],
-              ),
+        actions: [
+          if (screenWidth > 800)
+            Row(
+              children: [
+                _navButton(context, "HOME", const HomePage()),
+                _navButton(context, "EUREKA", const NewsletterSection()),
+                _navButton(context, "COLLABORATION", const CollaborationSection()),
+                _navButton(context, "IDEABOX", const IdeaBoxSection()),
+                _navButton(context, "INCUBATION", const Incubation()),
+                _navButton(context, "CONTACT US", const ContactSection()),
+              ],
+            )
+          else
+            PopupMenuButton<String>(
+              icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
+              onSelected: (value) {
+                final pages = {
+                  "HOME": const HomePage(),
+                  "EUREKA": const NewsletterSection(),
+                  "COLLABORATION": const CollaborationSection(),
+                  "IDEABOX": const IdeaBoxSection(),
+                  "INCUBATION": const Incubation(),
+                  "CONTACT US": const ContactSection(),
+                };
+                Navigator.push(context, MaterialPageRoute(builder: (_) => pages[value]!));
+              },
+              itemBuilder: (context) => const [
+                PopupMenuItem(value: "HOME", child: Text("HOME")),
+                PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
+                PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
+                PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
+                PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
+                PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+              ],
+            ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
@@ -104,55 +92,41 @@ class WebTeam extends StatelessWidget {
               "Web Team",
               style: TextStyle(color: Colors.amber, fontSize: 32, fontWeight: FontWeight.bold),
             ),
-
             const SizedBox(height: 20),
 
-            // 🔹 Responsive Grid for team members
-            _responsiveGrid(const [
-              OfficerCard(imagePath: "assets/Aby.jpg", name: "Aby John", description: "Developer"),
-              OfficerCard(imagePath: "assets/Bibitha.JPG", name: "Bibitha Mariam Santhosh", description: "Developer"),
-              OfficerCard(imagePath: "assets/Akhin.JPG", name: "Akhin Cheriyan", description: "Designer"),
-              OfficerCard(imagePath: "assets/Meenakshi1.JPG", name: "Meenakshi M. S.", description: "Designer"),
-            ]),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final crossAxisCount = constraints.maxWidth < 800 ? 1 : 2;
+
+                return GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: crossAxisCount,
+                  mainAxisSpacing: 20,
+                  crossAxisSpacing: 20,
+                  childAspectRatio: 0.75,
+                  children: const [
+                    OfficerCard(imagePath: "assets/Aby.jpg", name: "Aby John", description: "Developer"),
+                    OfficerCard(imagePath: "assets/Bibitha.JPG", name: "Bibitha Mariam Santhosh", description: "Developer"),
+                    OfficerCard(imagePath: "assets/Akhin.JPG", name: "Akhin Cheriyan", description: "Designer"),
+                    OfficerCard(imagePath: "assets/Meenakshi1.JPG", name: "Meenakshi M. S.", description: "Designer"),
+                  ],
+                );
+              },
+            ),
           ],
         ),
       ),
     );
   }
 
-  // 🔹 Helper for navigation buttons
   Widget _navButton(BuildContext context, String label, Widget page) {
     return TextButton(
-      onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
-      },
+      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => page)),
       child: Text(
         label,
-        style: const TextStyle(
-          color: Color.fromRGBO(15, 72, 106, 1.0),
-          fontWeight: FontWeight.bold,
-        ),
+        style: const TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0), fontWeight: FontWeight.bold),
       ),
-    );
-  }
-
-  // 🔹 Responsive Grid Builder
-  Widget _responsiveGrid(List<Widget> children) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        int crossAxisCount = 2; // desktop/tablet default
-        if (constraints.maxWidth < 700) crossAxisCount = 1; // mobile → single column
-
-        return GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: crossAxisCount,
-          mainAxisSpacing: 20,
-          crossAxisSpacing: 20,
-          childAspectRatio: 0.75,
-          children: children,
-        );
-      },
     );
   }
 }
@@ -172,50 +146,21 @@ class OfficerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 6,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              imagePath,
-              height: 180,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset(imagePath, height: 320, width: double.infinity, fit: BoxFit.cover),
           ),
           const SizedBox(height: 12),
-          Text(
-            name,
-            style: const TextStyle(
-              color: Colors.amber,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Text(name, style: const TextStyle(color: Colors.amber, fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
-          Text(
-            description,
-            style: const TextStyle(
-              color: Colors.white70,
-              fontSize: 14,
-              height: 1.4,
-            ),
-            textAlign: TextAlign.center,
-          ),
+          Text(description, style: const TextStyle(color: Colors.white70), textAlign: TextAlign.center),
         ],
       ),
     );

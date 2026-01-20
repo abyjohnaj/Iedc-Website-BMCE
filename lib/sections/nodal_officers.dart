@@ -27,7 +27,7 @@ class NodalOfficersPage extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset('assets/IEDC  LOGO.png'),
               ),
-              if (screenWidth > 600) // hide long text on small screens
+              if (screenWidth > 600)
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,61 +41,81 @@ class NodalOfficersPage extends StatelessWidget {
                         height: 1.0,
                       ),
                     ),
-                    Text("Innovation and Entreprenuership ", style: TextStyle(fontSize: 10)),
-                    Text("Development Centre, BMCE", style: TextStyle(fontSize: 10)),
+                    Text(
+                      "Innovation and Entreprenuership ",
+                      style: TextStyle(fontSize: 10),
+                    ),
+                    Text(
+                      "Development Centre, BMCE",
+                      style: TextStyle(fontSize: 10),
+                    ),
                   ],
                 )
             ],
           ),
         ),
-        title: screenWidth > 800
-            ? Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _navButton(context, "HOME", const HomePage()),
-                    _navButton(context, "EUREKA", const NewsletterSection()),
-                    _navButton(context, "COLLABORATION", const CollaborationSection()),
-                    _navButton(context, "IDEABOX", const IdeaBoxSection()),
-                    _navButton(context, "INCUBATION", const Incubation()),
-                    _navButton(context, "CONTACT US", const ContactSection()),
-                  ],
-                ),
-              )
-            : PopupMenuButton<String>(
-                icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
-                onSelected: (value) {
-                  switch (value) {
-                    case "HOME":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
-                      break;
-                    case "EUREKA":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsletterSection()));
-                      break;
-                    case "COLLABORATION":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollaborationSection()));
-                      break;
-                    case "IDEABOX":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
-                      break;
-                    case "INCUBATION":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Incubation()));
-                      break;
-                    case "CONTACT US":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactSection()));
-                      break;
-                  }
-                },
-                itemBuilder: (context) => [
-                  const PopupMenuItem(value: "HOME", child: Text("HOME")),
-                  const PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
-                  const PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
-                  const PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
-                  const PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
-                  const PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+
+        actions: [
+          if (screenWidth > 800)
+            Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _navButton(context, "HOME", const HomePage()),
+                  _navButton(context, "EUREKA", const NewsletterSection()),
+                  _navButton(context, "COLLABORATION", const CollaborationSection()),
+                  _navButton(context, "IDEABOX", const IdeaBoxSection()),
+                  _navButton(context, "INCUBATION", const Incubation()),
+                  _navButton(context, "CONTACT US", const ContactSection()),
                 ],
               ),
+            )
+          else
+            PopupMenuButton<String>(
+              icon: const Icon(
+                Icons.menu,
+                color: Color.fromRGBO(15, 72, 106, 1.0),
+              ),
+              onSelected: (value) {
+                switch (value) {
+                  case "HOME":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const HomePage()));
+                    break;
+                  case "EUREKA":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const NewsletterSection()));
+                    break;
+                  case "COLLABORATION":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const CollaborationSection()));
+                    break;
+                  case "IDEABOX":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
+                    break;
+                  case "INCUBATION":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Incubation()));
+                    break;
+                  case "CONTACT US":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const ContactSection()));
+                    break;
+                }
+              },
+              itemBuilder: (context) => const [
+                PopupMenuItem(value: "HOME", child: Text("HOME")),
+                PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
+                PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
+                PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
+                PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
+                PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+              ],
+            ),
+        ],
       ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.all(screenWidth > 600 ? 20 : 10),
         child: Column(
@@ -104,11 +124,14 @@ class NodalOfficersPage extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               child: Text(
                 "Nodal Officers",
-                style: TextStyle(color: Colors.amber, fontSize: 32, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
 
-            // 🔹 Responsive Nodal Officers Grid
             _responsiveGrid(const [
               OfficerCard(imagePath: "assets/manojsir.JPG", name: "Prof. ManojKumar", description: "Nodal Officer"),
               OfficerCard(imagePath: "assets/sitharamiss.JPG", name: "Dr. Sithara Gopinath", description: "Nodal Officer"),
@@ -119,11 +142,14 @@ class NodalOfficersPage extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               child: Text(
                 "IEDC Department Co-ordinators",
-                style: TextStyle(color: Colors.amber, fontSize: 32, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.amber,
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
 
-            // 🔹 Responsive Department Coordinators Grid
             _responsiveGrid(const [
               OfficerCard(imagePath: "assets/rakhimiss.JPG", name: "Mrs. Rakhi Jayakumar", description: "CE"),
               OfficerCard(imagePath: "assets/shymamiss.PNG", name: "Mrs. Shyma S.", description: "EEE"),
@@ -138,13 +164,12 @@ class NodalOfficersPage extends StatelessWidget {
     );
   }
 
-  // 🔹 Helper: responsive officer card grid
+  // ✅ RESPONSIVE FIX HERE
   Widget _responsiveGrid(List<Widget> children) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        int crossAxisCount = 3; // desktop
-        if (constraints.maxWidth < 1200) crossAxisCount = 2; // tablet
-        if (constraints.maxWidth < 700) crossAxisCount = 1; // mobile
+        final int crossAxisCount =
+            constraints.maxWidth < 800 ? 1 : 3;
 
         return GridView.count(
           shrinkWrap: true,
@@ -159,11 +184,13 @@ class NodalOfficersPage extends StatelessWidget {
     );
   }
 
-  // 🔹 Reusable nav button
   Widget _navButton(BuildContext context, String label, Widget page) {
     return TextButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => page),
+        );
       },
       child: Text(
         label,
@@ -211,7 +238,7 @@ class OfficerCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
               imagePath,
-              height: 180,
+              height: 320,
               width: double.infinity,
               fit: BoxFit.cover,
             ),

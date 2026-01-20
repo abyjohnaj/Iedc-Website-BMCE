@@ -11,7 +11,6 @@ import 'package:iedc_web/sections/newsletter_section.dart';
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
 
-  // Function to launch URLs
   static Future<void> _launchUrl(String url) async {
     final uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
@@ -37,7 +36,7 @@ class ContactSection extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset('assets/IEDC  LOGO.png'),
               ),
-              if (screenWidth > 600) // hide text on smaller screens
+              if (screenWidth > 600)
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,61 +50,81 @@ class ContactSection extends StatelessWidget {
                         height: 1.0,
                       ),
                     ),
-                    Text("Innovation and Entreprenuership ", style: TextStyle(fontSize: 10)),
-                    Text("Development Centre, BMCE", style: TextStyle(fontSize: 10)),
+                    Text(
+                      "Innovation and Entreprenuership ",
+                      style: TextStyle(fontSize: 10),
+                    ),
+                    Text(
+                      "Development Centre, BMCE",
+                      style: TextStyle(fontSize: 10),
+                    ),
                   ],
                 )
             ],
           ),
         ),
-        title: screenWidth > 800
-            ? Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _navButton(context, "HOME", const HomePage()),
-                    _navButton(context, "EUREKA", const NewsletterSection()),
-                    _navButton(context, "COLLABORATION", const CollaborationSection()),
-                    _navButton(context, "IDEABOX", const IdeaBoxSection()),
-                    _navButton(context, "INCUBATION", const Incubation()),
-                    _navButton(context, "CONTACT US", const ContactSection()),
-                  ],
-                ),
-              )
-            : PopupMenuButton<String>(
-                icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
-                onSelected: (value) {
-                  switch (value) {
-                    case "HOME":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
-                      break;
-                    case "EUREKA":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsletterSection()));
-                      break;
-                    case "COLLABORATION":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollaborationSection()));
-                      break;
-                    case "IDEABOX":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
-                      break;
-                    case "INCUBATION":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Incubation()));
-                      break;
-                    case "CONTACT US":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactSection()));
-                      break;
-                  }
-                },
-                itemBuilder: (context) => [
-                  const PopupMenuItem(value: "HOME", child: Text("HOME")),
-                  const PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
-                  const PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
-                  const PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
-                  const PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
-                  const PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+
+        actions: [
+          if (screenWidth > 800)
+            Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _navButton(context, "HOME", const HomePage()),
+                  _navButton(context, "EUREKA", const NewsletterSection()),
+                  _navButton(context, "COLLABORATION", const CollaborationSection()),
+                  _navButton(context, "IDEABOX", const IdeaBoxSection()),
+                  _navButton(context, "INCUBATION", const Incubation()),
+                  _navButton(context, "CONTACT US", const ContactSection()),
                 ],
               ),
+            )
+          else
+            PopupMenuButton<String>(
+              icon: const Icon(
+                Icons.menu,
+                color: Color.fromRGBO(15, 72, 106, 1.0),
+              ),
+              onSelected: (value) {
+                switch (value) {
+                  case "HOME":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const HomePage()));
+                    break;
+                  case "EUREKA":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const NewsletterSection()));
+                    break;
+                  case "COLLABORATION":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const CollaborationSection()));
+                    break;
+                  case "IDEABOX":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
+                    break;
+                  case "INCUBATION":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Incubation()));
+                    break;
+                  case "CONTACT US":
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const ContactSection()));
+                    break;
+                }
+              },
+              itemBuilder: (context) => const [
+                PopupMenuItem(value: "HOME", child: Text("HOME")),
+                PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
+                PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
+                PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
+                PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
+                PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+              ],
+            ),
+        ],
       ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.all(screenWidth > 600 ? 40 : 20),
         child: Column(
@@ -114,7 +133,10 @@ class ContactSection extends StatelessWidget {
             const Text(
               "Contact Us",
               style: TextStyle(
-                  fontSize: 28, fontWeight: FontWeight.bold, color: Colors.amber),
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.amber,
+              ),
             ),
             const SizedBox(height: 20),
             const Padding(
@@ -134,33 +156,44 @@ class ContactSection extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
-            // 👇 Social Media Icons (responsive wrap)
             Wrap(
               spacing: 20,
               runSpacing: 10,
               children: [
                 IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.whatsapp,
-                      color: Colors.green, size: 32),
+                  icon: const FaIcon(
+                    FontAwesomeIcons.whatsapp,
+                    color: Colors.green,
+                    size: 32,
+                  ),
                   onPressed: () async {
                     await _launchUrl(
-                        "https://whatsapp.com/channel/0029Vb6yfNNI7BeJhuSzYL1y");
+                      "https://whatsapp.com/channel/0029Vb6yfNNI7BeJhuSzYL1y",
+                    );
                   },
                 ),
                 IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.linkedin,
-                      color: Colors.blue, size: 32),
+                  icon: const FaIcon(
+                    FontAwesomeIcons.linkedin,
+                    color: Colors.blue,
+                    size: 32,
+                  ),
                   onPressed: () async {
                     await _launchUrl(
-                        "https://www.linkedin.com/company/iedc-bmce/");
+                      "https://www.linkedin.com/company/iedc-bmce/",
+                    );
                   },
                 ),
                 IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.instagram,
-                      color: Colors.purple, size: 32),
+                  icon: const FaIcon(
+                    FontAwesomeIcons.instagram,
+                    color: Colors.purple,
+                    size: 32,
+                  ),
                   onPressed: () async {
                     await _launchUrl(
-                        "https://www.instagram.com/iedc.bmce?igsh=MW9jd3k3cjNmYWpnNg==");
+                      "https://www.instagram.com/iedc.bmce?igsh=MW9jd3k3cjNmYWpnNg==",
+                    );
                   },
                 ),
               ],
@@ -171,11 +204,13 @@ class ContactSection extends StatelessWidget {
     );
   }
 
-  // 🔹 Reusable nav button
   Widget _navButton(BuildContext context, String label, Widget page) {
     return TextButton(
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => page),
+        );
       },
       child: Text(
         label,
