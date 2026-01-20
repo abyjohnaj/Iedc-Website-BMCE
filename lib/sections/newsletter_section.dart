@@ -44,86 +44,106 @@ class NewsletterSection extends StatelessWidget {
       extendBodyBehindAppBar: false,
       backgroundColor: Colors.black,
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leadingWidth: 300,
-        leading: SizedBox(
-          width: 100,
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset('assets/IEDC  LOGO.png'),
+  elevation: 0,
+  backgroundColor: Colors.white,
+  leadingWidth: 300,
+  leading: SizedBox(
+    width: 100,
+    child: Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('assets/IEDC  LOGO.png'),
+        ),
+        if (screenWidth > 600)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              Text(
+                "IEDC",
+                style: TextStyle(
+                  color: Color.fromRGBO(15, 72, 106, 1.0),
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                  height: 1.0,
+                ),
               ),
-              if (screenWidth > 600) // hide long text on very small screens
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "IEDC",
-                      style: TextStyle(
-                        color: Color.fromRGBO(15, 72, 106, 1.0),
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold,
-                        height: 1.0,
-                      ),
-                    ),
-                    Text("Innovation and Entreprenuership ", style: TextStyle(fontSize: 10)),
-                    Text("Development Centre, BMCE", style: TextStyle(fontSize: 10)),
-                  ],
-                )
+              Text(
+                "Innovation and Entreprenuership ",
+                style: TextStyle(fontSize: 10),
+              ),
+              Text(
+                "Development Centre, BMCE",
+                style: TextStyle(fontSize: 10),
+              ),
             ],
           ),
+      ],
+    ),
+  ),
+
+  actions: [
+    if (screenWidth > 800)
+      Center(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _navButton(context, "HOME", const HomePage()),
+            _navButton(context, "EUREKA", const NewsletterSection()),
+            _navButton(context, "COLLABORATION", const CollaborationSection()),
+            _navButton(context, "IDEABOX", const IdeaBoxSection()),
+            _navButton(context, "INCUBATION", const Incubation()),
+            _navButton(context, "CONTACT US", const ContactSection()),
+          ],
         ),
-        title: screenWidth > 800
-            ? Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _navButton(context, "HOME", const HomePage()),
-                    _navButton(context, "EUREKA", const NewsletterSection()),
-                    _navButton(context, "COLLABORATION", const CollaborationSection()),
-                    _navButton(context, "IDEABOX", const IdeaBoxSection()),
-                    _navButton(context, "INCUBATION", const Incubation()),
-                    _navButton(context, "CONTACT US", const ContactSection()),
-                  ],
-                ),
-              )
-            : PopupMenuButton<String>(
-                icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
-                onSelected: (value) {
-                  switch (value) {
-                    case "HOME":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
-                      break;
-                    case "EUREKA":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const NewsletterSection()));
-                      break;
-                    case "COLLABORATION":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const CollaborationSection()));
-                      break;
-                    case "IDEABOX":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
-                      break;
-                    case "INCUBATION":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Incubation()));
-                      break;
-                    case "CONTACT US":
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactSection()));
-                      break;
-                  }
-                },
-                itemBuilder: (context) => [
-                  const PopupMenuItem(value: "HOME", child: Text("HOME")),
-                  const PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
-                  const PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
-                  const PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
-                  const PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
-                  const PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
-                ],
-              ),
+      )
+    else
+      PopupMenuButton<String>(
+        icon: const Icon(
+          Icons.menu,
+          color: Color.fromRGBO(15, 72, 106, 1.0),
+        ),
+        onSelected: (value) {
+          switch (value) {
+            case "HOME":
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+              break;
+            case "EUREKA":
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const NewsletterSection()));
+              break;
+            case "COLLABORATION":
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const CollaborationSection()));
+              break;
+            case "IDEABOX":
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const IdeaBoxSection()));
+              break;
+            case "INCUBATION":
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Incubation()));
+              break;
+            case "CONTACT US":
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ContactSection()));
+              break;
+          }
+        },
+        itemBuilder: (context) => const [
+          PopupMenuItem(value: "HOME", child: Text("HOME")),
+          PopupMenuItem(value: "EUREKA", child: Text("EUREKA")),
+          PopupMenuItem(value: "COLLABORATION", child: Text("COLLABORATION")),
+          PopupMenuItem(value: "IDEABOX", child: Text("IDEABOX")),
+          PopupMenuItem(value: "INCUBATION", child: Text("INCUBATION")),
+          PopupMenuItem(value: "CONTACT US", child: Text("CONTACT US")),
+        ],
       ),
+  ],
+),
+
       body: Column(
         children: [
           const SizedBox(height: 10),
