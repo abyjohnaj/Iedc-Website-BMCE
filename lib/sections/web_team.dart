@@ -28,10 +28,10 @@ class WebTeam extends StatelessWidget {
                 child: Image.asset('assets/IEDC  LOGO.png'),
               ),
               if (screenWidth > 600)
-                Column(
+                const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "IEDC",
                       style: TextStyle(
@@ -40,10 +40,16 @@ class WebTeam extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text("Innovation and Entreprenuership ", style: TextStyle(fontSize: 10)),
-                    Text("Development Centre, BMCE", style: TextStyle(fontSize: 10)),
+                    Text(
+                      "Innovation and Entreprenuership",
+                      style: TextStyle(fontSize: 10),
+                    ),
+                    Text(
+                      "Development Centre, BMCE",
+                      style: TextStyle(fontSize: 10),
+                    ),
                   ],
-                )
+                ),
             ],
           ),
         ),
@@ -61,7 +67,10 @@ class WebTeam extends StatelessWidget {
             )
           else
             PopupMenuButton<String>(
-              icon: const Icon(Icons.menu, color: Color.fromRGBO(15, 72, 106, 1.0)),
+              icon: const Icon(
+                Icons.menu,
+                color: Color.fromRGBO(15, 72, 106, 1.0),
+              ),
               onSelected: (value) {
                 final pages = {
                   "HOME": const HomePage(),
@@ -71,7 +80,10 @@ class WebTeam extends StatelessWidget {
                   "INCUBATION": const Incubation(),
                   "CONTACT US": const ContactSection(),
                 };
-                Navigator.push(context, MaterialPageRoute(builder: (_) => pages[value]!));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => pages[value]!),
+                );
               },
               itemBuilder: (context) => const [
                 PopupMenuItem(value: "HOME", child: Text("HOME")),
@@ -84,19 +96,25 @@ class WebTeam extends StatelessWidget {
             ),
         ],
       ),
+
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(screenWidth > 600 ? 20 : 10),
         child: Column(
           children: [
-            const Text(
+            Text(
               "Web Team",
-              style: TextStyle(color: Colors.amber, fontSize: 32, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.amber,
+                fontSize: screenWidth > 800 ? 32 : 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 20),
 
             LayoutBuilder(
               builder: (context, constraints) {
-                final crossAxisCount = constraints.maxWidth < 800 ? 1 : 2;
+                final int crossAxisCount =
+                    constraints.maxWidth < 800 ? 1 : 2;
 
                 return GridView.count(
                   shrinkWrap: true,
@@ -104,12 +122,24 @@ class WebTeam extends StatelessWidget {
                   crossAxisCount: crossAxisCount,
                   mainAxisSpacing: 20,
                   crossAxisSpacing: 20,
-                  childAspectRatio: 0.75,
+                  childAspectRatio: 0.9,
                   children: const [
-                    OfficerCard(imagePath: "assets/Aby.jpg", name: "Aby John", description: "Developer"),
-                    OfficerCard(imagePath: "assets/Bibitha.JPG", name: "Bibitha Mariam Santhosh", description: "Developer"),
-                    OfficerCard(imagePath: "assets/Akhin.JPG", name: "Akhin Cheriyan", description: "Designer"),
-                    OfficerCard(imagePath: "assets/Meenakshi1.JPG", name: "Meenakshi M. S.", description: "Designer"),
+                    OfficerCard(
+                        imagePath: "assets/Aby.jpg",
+                        name: "Aby John",
+                        description: "Developer"),
+                    OfficerCard(
+                        imagePath: "assets/Bibitha.JPG",
+                        name: "Bibitha Mariam Santhosh",
+                        description: "Developer"),
+                    OfficerCard(
+                        imagePath: "assets/Akhin.JPG",
+                        name: "Akhin Cheriyan",
+                        description: "Designer"),
+                    OfficerCard(
+                        imagePath: "assets/Meenakshi1.JPG",
+                        name: "Meenakshi M. S.",
+                        description: "Designer"),
                   ],
                 );
               },
@@ -122,10 +152,18 @@ class WebTeam extends StatelessWidget {
 
   Widget _navButton(BuildContext context, String label, Widget page) {
     return TextButton(
-      onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => page)),
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => page),
+        );
+      },
       child: Text(
         label,
-        style: const TextStyle(color: Color.fromRGBO(15, 72, 106, 1.0), fontWeight: FontWeight.bold),
+        style: const TextStyle(
+          color: Color.fromRGBO(15, 72, 106, 1.0),
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -150,17 +188,43 @@ class OfficerCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 6,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
       child: Column(
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(imagePath, height: 320, width: double.infinity, fit: BoxFit.cover),
+            child: Image.asset(
+              imagePath,
+              height: 335,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(height: 12),
-          Text(name, style: const TextStyle(color: Colors.amber, fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          Text(description, style: const TextStyle(color: Colors.white70), textAlign: TextAlign.center),
+          Text(
+            name,
+            style: const TextStyle(
+              color: Colors.amber,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            description,
+            style: const TextStyle(
+              color: Colors.white70,
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );

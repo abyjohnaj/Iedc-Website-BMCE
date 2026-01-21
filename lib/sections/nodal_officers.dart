@@ -54,7 +54,6 @@ class NodalOfficersPage extends StatelessWidget {
             ],
           ),
         ),
-
         actions: [
           if (screenWidth > 800)
             Center(
@@ -115,40 +114,50 @@ class NodalOfficersPage extends StatelessWidget {
             ),
         ],
       ),
-
       body: SingleChildScrollView(
         padding: EdgeInsets.all(screenWidth > 600 ? 20 : 10),
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "Nodal Officers",
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+            Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Text(
+    "Nodal Officers",
+    style: TextStyle(
+      color: Colors.amber,
+      fontSize: screenWidth > 800 ? 32 : 20,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+),
+
 
             _responsiveGrid(const [
-              OfficerCard(imagePath: "assets/manojsir.JPG", name: "Prof. ManojKumar", description: "Nodal Officer"),
-              OfficerCard(imagePath: "assets/sitharamiss.JPG", name: "Dr. Sithara Gopinath", description: "Nodal Officer"),
-              OfficerCard(imagePath: "assets/sreekumarsir.PNG", name: "Prof. Sreekumar Pillai", description: "Nodal Officer"),
+              OfficerCard(
+                  imagePath: "assets/manojsir.JPG",
+                  name: "Prof. ManojKumar",
+                  description: "Nodal Officer"),
+              OfficerCard(
+                  imagePath: "assets/sitharamiss.JPG",
+                  name: "Dr. Sithara Gopinath",
+                  description: "Nodal Officer"),
+              OfficerCard(
+                  imagePath: "assets/sreekumarsir.PNG",
+                  name: "Prof. Sreekumar Pillai",
+                  description: "Nodal Officer"),
             ]),
 
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "IEDC Department Co-ordinators",
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+           Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Text(
+    "IEDC Department Co-ordinators",
+    style: TextStyle(
+      color: Colors.amber,
+      fontSize: screenWidth > 800 ? 32 : 20,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+),
+
 
             _responsiveGrid(const [
               OfficerCard(imagePath: "assets/rakhimiss.JPG", name: "Mrs. Rakhi Jayakumar", description: "CE"),
@@ -164,12 +173,10 @@ class NodalOfficersPage extends StatelessWidget {
     );
   }
 
-  // ✅ RESPONSIVE FIX HERE
   Widget _responsiveGrid(List<Widget> children) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final int crossAxisCount =
-            constraints.maxWidth < 800 ? 1 : 3;
+        final int crossAxisCount = constraints.maxWidth < 800 ? 1 : 3;
 
         return GridView.count(
           shrinkWrap: true,
@@ -177,7 +184,7 @@ class NodalOfficersPage extends StatelessWidget {
           crossAxisCount: crossAxisCount,
           mainAxisSpacing: 20,
           crossAxisSpacing: 20,
-          childAspectRatio: 0.7,
+          childAspectRatio: 0.9, // ✅ FIXED
           children: children,
         );
       },
@@ -218,9 +225,7 @@ class OfficerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(16),
@@ -238,7 +243,7 @@ class OfficerCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
               imagePath,
-              height: 320,
+              height: 335, // ✅ FIXED
               width: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -252,13 +257,12 @@ class OfficerCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           Text(
             description,
             style: const TextStyle(
               color: Colors.white70,
               fontSize: 14,
-              height: 1.4,
             ),
             textAlign: TextAlign.center,
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iedc_web/sections/hero_carousel.dart';
 import 'package:iedc_web/sections/upevetemp.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:iedc_web/sections/incubation.dart';
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset('assets/IEDC  LOGO.png'),
               ),
-              if (screenWidth > 600)
+              
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-              const CustomFooter(),
+              const HeroCarousel(),
             ],
           ),
         ),

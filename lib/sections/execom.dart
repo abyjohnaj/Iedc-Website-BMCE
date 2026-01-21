@@ -28,10 +28,10 @@ class Execom extends StatelessWidget {
                 child: Image.asset('assets/IEDC  LOGO.png'),
               ),
               if (screenWidth > 600)
-                Column(
+                const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                       "IEDC",
                       style: TextStyle(
@@ -41,7 +41,7 @@ class Execom extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "Innovation and Entreprenuership ",
+                      "Innovation and Entreprenuership",
                       style: TextStyle(fontSize: 10),
                     ),
                     Text(
@@ -49,7 +49,7 @@ class Execom extends StatelessWidget {
                       style: TextStyle(fontSize: 10),
                     ),
                   ],
-                )
+                ),
             ],
           ),
         ),
@@ -80,7 +80,6 @@ class Execom extends StatelessWidget {
                   "INCUBATION": const Incubation(),
                   "CONTACT US": const ContactSection(),
                 };
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (_) => pages[value]!),
@@ -97,19 +96,21 @@ class Execom extends StatelessWidget {
             ),
         ],
       ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.all(screenWidth > 600 ? 20 : 10),
         child: Column(
           children: [
-            const Text(
+            Text(
               "Execom Members",
               style: TextStyle(
                 color: Colors.amber,
-                fontSize: 32,
+                fontSize: screenWidth > 800 ? 32 : 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 20),
+
             LayoutBuilder(
               builder: (context, constraints) {
                 final int crossAxisCount =
@@ -121,7 +122,7 @@ class Execom extends StatelessWidget {
                   crossAxisCount: crossAxisCount,
                   mainAxisSpacing: 20,
                   crossAxisSpacing: 20,
-                  childAspectRatio: 0.7,
+                  childAspectRatio: 0.9,
                   children: const [
                     OfficerCard(imagePath: "assets/ivin.png", name: "Ivin Saji", description: "Student Lead"),
                     OfficerCard(imagePath: "assets/Gouri.JPG", name: "Gouri Krishna", description: "Student Lead"),
@@ -131,16 +132,6 @@ class Execom extends StatelessWidget {
                     OfficerCard(imagePath: "assets/Niranjana.JPG", name: "Niranjana Unni", description: "Finance Lead"),
                     OfficerCard(imagePath: "assets/anupa.jpg", name: "Anupa Alex", description: "Finance Lead"),
                     OfficerCard(imagePath: "assets/Aaron.JPG", name: "Aaron Panicker", description: "Creative Lead"),
-                    OfficerCard(imagePath: "assets/sooraj.JPG", name: "Sooraj Subash", description: "Community Lead"),
-                    OfficerCard(imagePath: "assets/Advaith.JPG", name: "Advaith N.", description: "Community Lead"),
-                    OfficerCard(imagePath: "assets/nijin.JPG", name: "Muhammad Nijin", description: "Community Lead"),
-                    OfficerCard(imagePath: "assets/sruthy.JPG", name: "Sruthy Prasad R.", description: "Community Lead"),
-                    OfficerCard(imagePath: "assets/Meenakshi1.JPG", name: "Meenakshi M. S.", description: "Women Innovation Lead"),
-                    OfficerCard(imagePath: "assets/Anna.JPG", name: "Anna Rachel Biju", description: "Women Innovation Lead"),
-                    OfficerCard(imagePath: "assets/amal.JPG", name: "Amal Shaji", description: "Media Lead"),
-                    OfficerCard(imagePath: "assets/joshua.JPG", name: "Joshua", description: "Media Lead"),
-                    OfficerCard(imagePath: "assets/Jiorijin.JPG", name: "Jiorijin Prakash", description: "IPR & Research Lead"),
-                    OfficerCard(imagePath: "assets/abiel.jpeg", name: "Abiel Saji Varghese", description: "IPR & Research Lead"),
                   ],
                 );
               },
@@ -151,7 +142,6 @@ class Execom extends StatelessWidget {
     );
   }
 
-  // ✅ REQUIRED: this fixes the _navButton error
   Widget _navButton(BuildContext context, String label, Widget page) {
     return TextButton(
       onPressed: () {
@@ -204,7 +194,7 @@ class OfficerCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
               imagePath,
-              height: 320,
+              height: 335,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -218,13 +208,12 @@ class OfficerCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
           Text(
             description,
             style: const TextStyle(
               color: Colors.white70,
               fontSize: 14,
-              height: 1.4,
             ),
             textAlign: TextAlign.center,
           ),
